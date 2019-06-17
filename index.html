@@ -32,7 +32,7 @@
         if (typeof web3 !== 'undefined') {
             web3 = new Web3(web3.currentProvider);
         } else {
-            web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:7545"));
+            web3 = new Web3(new Web3.providers.HttpProvider('rinkeby.infura.io/v3/53d47eaecef34962baf08306a5e7d83d'));
         }
 
         // Set a default account
@@ -71,12 +71,13 @@
 ]);
 
         // Get the contract abi
-        var myMessage = RemixContract.at('0x19ffde60d69bd79609503a4c3d23b671a9bebf9c');
+        let myMessage = RemixContract.at('0x1abbecabf15e5961df14e60458dc4e439da13374');
 
         console.log(myMessage);
 
         $("#setMessageButton").click(() => {
-            myMessage.setMessage($("#userInput").val());
+            let message = $("#userInput").val()
+            myMessage.setMessage(message, (err, res) => {message = res});
             console.log($("#userInput").val())
         });
 
